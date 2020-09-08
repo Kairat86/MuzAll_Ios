@@ -16,6 +16,7 @@ class Track :Identifiable, Decodable, CustomStringConvertible{
     let audio:String
     let image:String
     let id: String
+    
     static func == (lhs: Track, rhs: Track) -> Bool {
         return Int(lhs.id)==Int(rhs.id)
     }

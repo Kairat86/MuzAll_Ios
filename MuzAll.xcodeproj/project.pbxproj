@@ -18,8 +18,11 @@
 		A2A8FCDA24699DB800BBE8C5 /* SeekBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A8FCD924699DB800BBE8C5 /* SeekBar.swift */; };
 		A2AC925A24B80161000298E3 /* SeekBarTouchListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC925924B80161000298E3 /* SeekBarTouchListener.swift */; };
 		A2C46A222501C77B0052029D /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C46A212501C77B0052029D /* DownloadManager.swift */; };
+		A2C46A242501E0EA0052029D /* DownloadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C46A232501E0EA0052029D /* DownloadDelegate.swift */; };
 		A2DB7325242E546900A53A26 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DB7324242E546900A53A26 /* Response.swift */; };
 		A2DB7328242E552500A53A26 /* local.properties in Resources */ = {isa = PBXBuildFile; fileRef = A2DB7327242E552500A53A26 /* local.properties */; };
+		A2E909EB250209AF00754382 /* MuzAllFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E909EA250209AF00754382 /* MuzAllFile.swift */; };
+		A2E909ED250223BC00754382 /* TrackItemDownloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E909EC250223BC00754382 /* TrackItemDownloading.swift */; };
 		B1BD7C12247EFB9041C62408 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9AB7568C6060A3ED436159C /* Main.storyboard */; };
 		BF288EB02402A53600CF0B1F /* TrackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF288EAF2402A53600CF0B1F /* TrackTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -38,8 +41,11 @@
 		A2A8FCD924699DB800BBE8C5 /* SeekBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekBar.swift; sourceTree = "<group>"; };
 		A2AC925924B80161000298E3 /* SeekBarTouchListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekBarTouchListener.swift; sourceTree = "<group>"; };
 		A2C46A212501C77B0052029D /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		A2C46A232501E0EA0052029D /* DownloadDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadDelegate.swift; sourceTree = "<group>"; };
 		A2DB7324242E546900A53A26 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		A2DB7327242E552500A53A26 /* local.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = local.properties; sourceTree = "<group>"; };
+		A2E909EA250209AF00754382 /* MuzAllFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuzAllFile.swift; sourceTree = "<group>"; };
+		A2E909EC250223BC00754382 /* TrackItemDownloading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItemDownloading.swift; sourceTree = "<group>"; };
 		BF288EAF2402A53600CF0B1F /* TrackTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewController.swift; sourceTree = "<group>"; };
 		F9AB7568C6060A3ED436159C /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +83,7 @@
 				A2A8FCD924699DB800BBE8C5 /* SeekBar.swift */,
 				A25E5F3024C9E3D20076596F /* MusicCell.swift */,
 				A266360224D8B843007964B8 /* TrackItem.swift */,
+				A2E909EC250223BC00754382 /* TrackItemDownloading.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -85,16 +92,17 @@
 			isa = PBXGroup;
 			children = (
 				A2AC925924B80161000298E3 /* SeekBarTouchListener.swift */,
+				A2C46A232501E0EA0052029D /* DownloadDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		A2C46A202501B56C0052029D /* manager */ = {
+		A2C46A202501B56C0052029D /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				A2C46A212501C77B0052029D /* DownloadManager.swift */,
 			);
-			path = manager;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		A2DB7326242E552500A53A26 /* Resources */ = {
@@ -128,6 +136,7 @@
 			children = (
 				A2DB7324242E546900A53A26 /* Response.swift */,
 				A280AC03242E1D5E000E4303 /* Track.swift */,
+				A2E909EA250209AF00754382 /* MuzAllFile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -135,7 +144,7 @@
 		FE8193F60A5388D7B5CCBB32 /* MuzAll */ = {
 			isa = PBXGroup;
 			children = (
-				A2C46A202501B56C0052029D /* manager */,
+				A2C46A202501B56C0052029D /* Manager */,
 				A2AC925824B80140000298E3 /* Protocol */,
 				A2DB7326242E552500A53A26 /* Resources */,
 				A280AC07242E1F41000E4303 /* View */,
@@ -214,12 +223,15 @@
 				A21961DD243F9F2E00434903 /* PlayController.swift in Sources */,
 				A280AC04242E1D5E000E4303 /* Track.swift in Sources */,
 				A280AC06242E1F2B000E4303 /* TrackCell.swift in Sources */,
+				A2E909EB250209AF00754382 /* MuzAllFile.swift in Sources */,
 				A279B5AC24614EF600C99CC6 /* MyMusicController.swift in Sources */,
 				A25E5F3124C9E3D20076596F /* MusicCell.swift in Sources */,
+				A2C46A242501E0EA0052029D /* DownloadDelegate.swift in Sources */,
 				A2AC925A24B80161000298E3 /* SeekBarTouchListener.swift in Sources */,
 				A2C46A222501C77B0052029D /* DownloadManager.swift in Sources */,
 				A2A8FCDA24699DB800BBE8C5 /* SeekBar.swift in Sources */,
 				A266360324D8B843007964B8 /* TrackItem.swift in Sources */,
+				A2E909ED250223BC00754382 /* TrackItemDownloading.swift in Sources */,
 				A284C33224FAE88100E9F9D0 /* AppDelegate.swift in Sources */,
 				A2DB7325242E546900A53A26 /* Response.swift in Sources */,
 			);

@@ -9,53 +9,60 @@ import UIKit
 import QuickLookThumbnailing
 import AVFoundation
 
-class MyMusicController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    
+class MyMusicController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, DownloadDelegate {
     
     @IBOutlet weak var grid: UICollectionView!
-    var fileList=[URL]()
+    var files=[MuzAllFile]()
     let qlg=QLThumbnailGenerator()
     let size: CGSize = CGSize(width: 60, height: 90)
     let scale = UIScreen.main.scale
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
+        files.count/3+1
     }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        fileList.count<3 ? fileList.count : 3
+        let r = files.count-section*3
+        return r<3 ? r : 3
     }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+          
+        let i = indexPath.section*3+indexPath.row
+        let f = files[i]
+        if f.inProgress {
+            let item = grid.dequeueReusableCell(withReuseIdentifier: "TrackItemDownloading", for: indexPath) as! TrackItemDownloading
+            return item
+        }
+         let item = grid.dequeueReusableCell(withReuseIdentifier: "TrackItem", for: indexPath) as! TrackItem
+        var name = f.url!.lastPathComponent
+           name.removeLast(4)
+           item.name.text=name
+        let asset = AVAsset(url: f.url!) as AVAsset
+           for metaDataItems in asset.commonMetadata {
+               if metaDataItems.commonKey?.rawValue == "artwork" {
+                   let imageData = metaDataItems.value as! NSData
+                   var image2: UIImage = UIImage(data: imageData as Data)!
+                   item.thumb.image = image2
+               }
+           }
+           return item
+       }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected")
-        let path=fileList[indexPath.row]
-        var name = path.lastPathComponent
+        let f=files[indexPath.section*3+indexPath.row]
+        var name = f.url!.lastPathComponent
         name.removeLast(4)
         let player = (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "player") as! PlayController)
-        player.selectedTrack=Track(name: name,id: "1",duration: 2,artist_name: "artist",releasedate: "date",audio: String(describing: path))
+        player.selectedTrack=Track(name: name,id: "1",duration: 2,artist_name: "artist",releasedate: "date",audio: String(describing: f.url!))
         player.isDownloadHidden=true
         present(player,animated: false)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = grid.dequeueReusableCell(withReuseIdentifier: "TrackItem", for: indexPath) as! TrackItem
-        let url = fileList[indexPath.row]
-        var name: String = url.lastPathComponent
-        print(name)
-        name.removeLast(4)
-        item.name.text=name
-        let asset = AVAsset(url: url) as AVAsset
-        for metaDataItems in asset.commonMetadata {
-            if metaDataItems.commonKey?.rawValue == "artwork" {
-                let imageData = metaDataItems.value as! NSData
-                var image2: UIImage = UIImage(data: imageData as Data)!
-                item.thumb.image = image2
-            }
-        }
-        return item
-    }
+    func onDataReceived() {
+            
+       }
     
     override func viewDidLoad() {
         grid.dataSource=self
@@ -72,8 +79,14 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
             }
         }
         do{
-            fileList = try FileManager().contentsOfDirectory(at: url! as URL, includingPropertiesForKeys: nil)
-            print("files=>\(fileList)")
+            let urls = try FileManager().contentsOfDirectory(at: url! as URL, includingPropertiesForKeys: nil)
+            for u in urls {
+                files.append(MuzAllFile(url:u))
+            }
+            if DownloadManager.shared.isDownloading{
+                files.insert(MuzAllFile(inProgress: true), at: 0)
+                DownloadManager.shared.downloadDelegate=self
+            }
         }catch{
             print("err=>\(error)")
         }

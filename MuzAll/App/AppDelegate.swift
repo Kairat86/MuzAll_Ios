@@ -18,13 +18,4 @@ class MuzAllAppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
-    
-//    func registerForPushNotifications() {
-//            UNUserNotificationCenter.current()
-//                .requestAuthorization(options: [.alert, .sound, .badge]) {(granted, error) in
-//                    print("Permission granted: \(granted)")
-//            }
-//    }
-
-    
 }
