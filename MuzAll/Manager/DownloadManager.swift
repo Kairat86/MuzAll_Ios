@@ -26,6 +26,7 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
                var path = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.musicDirectory, .userDomainMask, true)[0])
             try FileManager.default.copyItem(at: location, to: path.appendingPathComponent(name!+".mp3")!)
             isDownloading=false
+            downloadDelegate?.onFinished()
                print("copy finished")
            } catch (let writeError) {
                print("error writing file: \(writeError)")
@@ -33,7 +34,7 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
        }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        print("totalBytesWritten=>\(totalBytesWritten)")
-        downloadDelegate?.onDataReceived()
+        print("totalBytesWritten=>\(totalBytesWritten) of=>\(totalBytesExpectedToWrite)")
+        downloadDelegate?.onDataReceived(percent: Float(totalBytesWritten)/Float(totalBytesExpectedToWrite))
     }
 }

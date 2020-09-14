@@ -9,5 +9,7 @@ import Foundation
 
 protocol DownloadDelegate {
     
-    func onDataReceived() 
+    func onDataReceived(percent:Float)
+    
+    func onFinished()
 }

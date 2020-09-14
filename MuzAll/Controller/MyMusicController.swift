@@ -33,6 +33,8 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
         let f = files[i]
         if f.inProgress {
             let item = grid.dequeueReusableCell(withReuseIdentifier: "TrackItemDownloading", for: indexPath) as! TrackItemDownloading
+            item.name.text="Downloading..."
+            item.animate(progress: f.progress)
             return item
         }
          let item = grid.dequeueReusableCell(withReuseIdentifier: "TrackItem", for: indexPath) as! TrackItem
@@ -60,9 +62,23 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
         present(player,animated: false)
     }
     
-    func onDataReceived() {
-            
+     func onDataReceived(percent:Float) {
+        print("prog=>\(percent)")
+        files[0].progress = percent
+        let indexPath=IndexPath.init(item: 0, section: 0)
+        DispatchQueue.main.async {
+            self.grid.reloadItems(at:[indexPath])
+             }
        }
+    
+    func onFinished() {
+        print("on finished")
+        files=[]
+        DispatchQueue.main.async {
+            self.viewDidLoad()
+            self.grid.reloadData()
+         }
+      }
     
     override func viewDidLoad() {
         grid.dataSource=self

@@ -9,7 +9,7 @@ import Foundation
 
 class MuzAllFile {
     var inProgress = false
-    var progress = 0
+    var progress:Float = 0
     let url:URL?
     
     init(url:URL) {
