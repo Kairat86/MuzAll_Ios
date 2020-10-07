@@ -23,11 +23,12 @@ class DownloadManager: NSObject, URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL){
            print("loc=>\(location.absoluteURL)")
            do {
-               var path = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.musicDirectory, .userDomainMask, true)[0])
-            try FileManager.default.copyItem(at: location, to: path.appendingPathComponent(name!+".mp3")!)
+            let path = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.musicDirectory, .userDomainMask, true)[0])
+            let url = path.appendingPathComponent(name!+".mp3")!
+            try FileManager.default.copyItem(at: location, to: url)
             isDownloading=false
-            downloadDelegate?.onFinished()
-               print("copy finished")
+            print("finished copying to \(path)")
+            downloadDelegate?.onFinished(path:url)
            } catch (let writeError) {
                print("error writing file: \(writeError)")
            }

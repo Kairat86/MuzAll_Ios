@@ -23,6 +23,7 @@
 		A2DB7328242E552500A53A26 /* local.properties in Resources */ = {isa = PBXBuildFile; fileRef = A2DB7327242E552500A53A26 /* local.properties */; };
 		A2E909EB250209AF00754382 /* MuzAllFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E909EA250209AF00754382 /* MuzAllFile.swift */; };
 		A2E909ED250223BC00754382 /* TrackItemDownloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E909EC250223BC00754382 /* TrackItemDownloading.swift */; };
+		A2E9E6622520E45000BA5227 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2E9E6612520E45000BA5227 /* LaunchScreen.storyboard */; };
 		B1BD7C12247EFB9041C62408 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9AB7568C6060A3ED436159C /* Main.storyboard */; };
 		BF288EB02402A53600CF0B1F /* TrackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF288EAF2402A53600CF0B1F /* TrackTableViewController.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		A2DB7327242E552500A53A26 /* local.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = local.properties; sourceTree = "<group>"; };
 		A2E909EA250209AF00754382 /* MuzAllFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuzAllFile.swift; sourceTree = "<group>"; };
 		A2E909EC250223BC00754382 /* TrackItemDownloading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItemDownloading.swift; sourceTree = "<group>"; };
+		A2E9E6612520E45000BA5227 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF288EAF2402A53600CF0B1F /* TrackTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewController.swift; sourceTree = "<group>"; };
 		F9AB7568C6060A3ED436159C /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +118,7 @@
 		B25EB762955DFAD08CD4A09B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				A2E9E6612520E45000BA5227 /* LaunchScreen.storyboard */,
 				F9AB7568C6060A3ED436159C /* Main.storyboard */,
 			);
 			path = Assets;
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A280AC00242E19EA000E4303 /* Assets.xcassets in Resources */,
+				A2E9E6622520E45000BA5227 /* LaunchScreen.storyboard in Resources */,
 				A2DB7328242E552500A53A26 /* local.properties in Resources */,
 				B1BD7C12247EFB9041C62408 /* Main.storyboard in Resources */,
 			);
@@ -244,15 +248,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = R92JQN9YTV;
 				INFOPLIST_FILE = "$(SRCROOT)/MuzAll/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Countries;
+				PRODUCT_BUNDLE_IDENTIFIER = zhet.muz.all;
 				PRODUCT_NAME = MuzAll;
+				PROVISIONING_PROFILE_SPECIFIER = MuzAll;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -264,13 +271,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = R92JQN9YTV;
 				INFOPLIST_FILE = "$(SRCROOT)/MuzAll/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Countries;
+				PRODUCT_BUNDLE_IDENTIFIER = zhet.muz.all;
 				PRODUCT_NAME = MuzAll;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;

@@ -1,16 +1,21 @@
 import UIKit
 
-class TrackTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TrackTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet var table: UITableView!
     var aIC :UIViewController?=nil
-    @IBOutlet weak var sb: UISearchBar!
     var selectedTrack:Track?=nil
     var appeared=false
     let f=Bundle.main.path(forResource: "local",ofType:"properties") ?? "NULL"
     var tracks = [Track]()
+    var popularHolder=[Track]()
+    var searching=false
+    var currentQuery=""
+    var noResults=false
+    let v=UISearchBar(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tracks.count
     }
@@ -46,9 +51,13 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row==tracks.count-1{
+        if indexPath.row==tracks.count-1 && !noResults{
             present(aIC!,animated: false)
-            loadTracks(tracks.count)
+            if searching{
+                searchTracks(offset: tracks.count, query:currentQuery)
+            }else{
+                loadTracks(tracks.count)
+            }
         }
     }
     
@@ -68,17 +77,84 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
         table.dataSource=self
         table.delegate=self
         navItem.rightBarButtonItem=UIBarButtonItem(image: UIImage(systemName: "folder"), style: .plain, target: self, action: #selector(showMyMusic))
-        navItem.leftBarButtonItem=UIBarButtonItem(customView: UISearchBar(frame: CGRect(x: 0, y: 0, width: 300, height: 20)))
+//        navItem.leftBarButtonItem=UIBarButtonItem(customView: v)
+        navItem.leftBarButtonItems=[UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action:#selector(reset)),UIBarButtonItem(customView: v)]
+        navItem.hidesBackButton=false
+        v.delegate=self
+    }
+    
+    @objc func reset() {
+        print("reset in search=>\(searching)")
+        if !searching {return}
+        tracks=popularHolder
+        table.reloadData()
+        searching=false
+    }
+    
+     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("search for: \(searchBar.text)")
+        present(aIC!,animated: false)
+        if !searching{
+            popularHolder=tracks
+            tracks=[Track]()
+        }else{
+            tracks.removeAll()
+        }
+        noResults=false
+        searchTracks(offset: 0, query: searchBar.text!)
+        searching=true
+    }
+    
+    func searchTracks(offset:Int, query:String){
+        currentQuery=query
+        let fileContent = try! NSString(contentsOfFile:f, encoding: String.Encoding.utf8.rawValue)
+        let arr = fileContent.components(separatedBy: "\n")
+        let host=arr[0]
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = host
+        components.path="/v3.0/tracks"
+        components.queryItems=[
+            URLQueryItem(name:"format",value:"json"),
+            URLQueryItem(name:"limit",value:"25"),
+            URLQueryItem(name:"client_id",value:arr[1]),
+            URLQueryItem(name: "search", value: query),
+            URLQueryItem(name: "offset", value:String(offset))
+        ]
+        guard let url=components.url else {
+            preconditionFailure("Failed to construct URL")
+        }
+        URLSession.shared.dataTask(with: url) {
+            data, response, error in
+            let decoder = JSONDecoder()
+            do {
+                let response = try decoder.decode(Response.self, from: data ?? Data())
+                if response.results.count==0{
+                    self.noResults=true
+                    DispatchQueue.main.sync {[weak self]  in
+                        self?.dismiss(animated: false)
+                    }
+                    return
+                }
+                DispatchQueue.main.sync {[weak self]  in
+                    self?.tracks+=response.results
+                    self?.table.reloadData()
+                    self?.dismiss(animated: false)
+                    self?.v.endEditing(true)
+                }
+            } catch {
+                print("err=>\(error)")
+            }
+        }.resume()
     }
     
     @objc func showMyMusic(){
         performSegue(withIdentifier: "music", sender: self)
     }
     
-    private func loadTracks(_ offset:Int) {
+     private func loadTracks(_ offset:Int) {
         let fileContent = try! NSString(contentsOfFile:f, encoding: String.Encoding.utf8.rawValue)
         let arr = fileContent.components(separatedBy: "\n")
-        
         let host=arr[0]
         var components = URLComponents()
         components.scheme = "https"

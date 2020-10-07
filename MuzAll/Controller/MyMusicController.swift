@@ -8,14 +8,18 @@
 import UIKit
 import QuickLookThumbnailing
 import AVFoundation
+import AudioToolbox
 
-class MyMusicController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, DownloadDelegate {
+
+class MyMusicController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, DownloadDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var grid: UICollectionView!
     var files=[MuzAllFile]()
     let qlg=QLThumbnailGenerator()
     let size: CGSize = CGSize(width: 60, height: 90)
     let scale = UIScreen.main.scale
+    var itemToDel:URL? = nil
+    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         files.count/3+1
@@ -45,7 +49,7 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
            for metaDataItems in asset.commonMetadata {
                if metaDataItems.commonKey?.rawValue == "artwork" {
                    let imageData = metaDataItems.value as! NSData
-                   var image2: UIImage = UIImage(data: imageData as Data)!
+                   let image2: UIImage = UIImage(data: imageData as Data)!
                    item.thumb.image = image2
                }
            }
@@ -53,6 +57,7 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
        }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigationItem.rightBarButtonItem=nil
         let f=files[indexPath.section*3+indexPath.row]
         var name = f.url!.lastPathComponent
         name.removeLast(4)
@@ -71,19 +76,55 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
              }
        }
     
-    func onFinished() {
+    func onFinished(path:URL) {
         print("on finished")
-        files=[]
+        files[0]=MuzAllFile(url: path)
         DispatchQueue.main.async {
-            self.viewDidLoad()
-            self.grid.reloadData()
+            self.grid.reloadItems(at: [IndexPath.init(item: 0, section: 0)])
          }
       }
+    
+    private func setupLongGestureRecognizerOnCollection() {
+        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        grid?.addGestureRecognizer(longPressedGesture)
+    }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        if (gestureRecognizer.state != .began) {
+            return
+        }
+
+        let p = gestureRecognizer.location(in: grid)
+
+        if let indexPath = grid?.indexPathForItem(at: p) {
+            print("Long press at item: \(indexPath.row), section: \(indexPath.section)")
+            itemToDel = files[indexPath.section*3+indexPath.row].url
+            navigationItem.rightBarButtonItem=UIBarButtonItem(image: UIImage(systemName: "bin.xmark"), style: .plain, target: self, action: #selector(deleteItem))
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
+    }
+    
+    @objc func deleteItem(){
+        navigationItem.rightBarButtonItem=nil
+        do{
+        try FileManager.default.removeItem(at: itemToDel!)
+            files.removeAll()
+            viewDidLoad()
+            grid.reloadData()
+        print("deleted \(itemToDel?.lastPathComponent)")
+        }catch{
+            print("err")
+        }
+    }
     
     override func viewDidLoad() {
         grid.dataSource=self
         grid.delegate=self
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemRed]
+        setupLongGestureRecognizerOnCollection()
         let url = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).first
         
         let fm = FileManager()

@@ -11,5 +11,5 @@ protocol DownloadDelegate {
     
     func onDataReceived(percent:Float)
     
-    func onFinished()
+    func onFinished(path:URL)
 }
