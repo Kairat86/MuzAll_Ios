@@ -17,5 +17,4 @@ class MuzAllAppDelegate: UIResponder, UIApplicationDelegate {
             print("Failed to set audio session category.")
         }
         return true
-    }
-}
+    }}

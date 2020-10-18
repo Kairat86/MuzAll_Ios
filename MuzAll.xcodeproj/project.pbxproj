@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A21961DD243F9F2E00434903 /* PlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21961DC243F9F2E00434903 /* PlayController.swift */; };
-		A25E5F3124C9E3D20076596F /* MusicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25E5F3024C9E3D20076596F /* MusicCell.swift */; };
 		A266360324D8B843007964B8 /* TrackItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A266360224D8B843007964B8 /* TrackItem.swift */; };
 		A279B5AC24614EF600C99CC6 /* MyMusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A279B5AB24614EF600C99CC6 /* MyMusicController.swift */; };
 		A280AC00242E19EA000E4303 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A280ABFF242E19EA000E4303 /* Assets.xcassets */; };
@@ -32,7 +31,6 @@
 		4E4AD75AC8BDFF5DED1963D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84306E3F851F05E239AD4C78 /* MuzAll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuzAll.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A21961DC243F9F2E00434903 /* PlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayController.swift; sourceTree = "<group>"; };
-		A25E5F3024C9E3D20076596F /* MusicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicCell.swift; sourceTree = "<group>"; };
 		A266360224D8B843007964B8 /* TrackItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItem.swift; sourceTree = "<group>"; };
 		A279B5AB24614EF600C99CC6 /* MyMusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMusicController.swift; sourceTree = "<group>"; };
 		A280ABFF242E19EA000E4303 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 			children = (
 				A280AC05242E1F2B000E4303 /* TrackCell.swift */,
 				A2A8FCD924699DB800BBE8C5 /* SeekBar.swift */,
-				A25E5F3024C9E3D20076596F /* MusicCell.swift */,
 				A266360224D8B843007964B8 /* TrackItem.swift */,
 				A2E909EC250223BC00754382 /* TrackItemDownloading.swift */,
 			);
@@ -229,7 +226,6 @@
 				A280AC06242E1F2B000E4303 /* TrackCell.swift in Sources */,
 				A2E909EB250209AF00754382 /* MuzAllFile.swift in Sources */,
 				A279B5AC24614EF600C99CC6 /* MyMusicController.swift in Sources */,
-				A25E5F3124C9E3D20076596F /* MusicCell.swift in Sources */,
 				A2C46A242501E0EA0052029D /* DownloadDelegate.swift in Sources */,
 				A2AC925A24B80161000298E3 /* SeekBarTouchListener.swift in Sources */,
 				A2C46A222501C77B0052029D /* DownloadManager.swift in Sources */,
@@ -250,13 +246,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = R92JQN9YTV;
 				INFOPLIST_FILE = "$(SRCROOT)/MuzAll/App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = zhet.muz.all;
 				PRODUCT_NAME = MuzAll;
 				PROVISIONING_PROFILE_SPECIFIER = MuzAll;
@@ -271,13 +269,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = R92JQN9YTV;
 				INFOPLIST_FILE = "$(SRCROOT)/MuzAll/App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = zhet.muz.all;
 				PRODUCT_NAME = MuzAll;
 				SDKROOT = iphoneos;

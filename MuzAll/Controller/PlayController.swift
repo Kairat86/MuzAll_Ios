@@ -14,6 +14,7 @@ class PlayController: UIViewController, SeekBarDelegate, ObservableObject {
     var stopped=true
     
     override func viewDidLoad() {
+        modalPresentationStyle = .popover
         name.text=selectedTrack?.name
         play(trackUrl: selectedTrack!.audio)
         seekBar.touchDelegate=self

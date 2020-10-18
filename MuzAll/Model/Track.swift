@@ -1,11 +1,3 @@
-//
-//  Track.swift
-//  MuzAll
-//
-//  Created by Kairat Doshekenov on 1/19/20.
-//  Copyright © 2020 ZigZak. All rights reserved.
-//
-
 import Foundation
 
 class Track :Identifiable, Decodable, CustomStringConvertible{
@@ -16,13 +8,14 @@ class Track :Identifiable, Decodable, CustomStringConvertible{
     let audio:String
     let image:String
     let id: String
+    let license_ccurl:String
     
     static func == (lhs: Track, rhs: Track) -> Bool {
         return Int(lhs.id)==Int(rhs.id)
     }
     
     
-    init(name:String, id:String, duration:Int, artist_name:String, releasedate:String, audio:String, image:String="") {
+    init(name:String, id:String, duration:Int, artist_name:String, releasedate:String, audio:String, image:String="",license_ccurl:String="") {
         self.name=name
         self.id=id
         self.duration=duration
@@ -30,6 +23,7 @@ class Track :Identifiable, Decodable, CustomStringConvertible{
         self.releasedate=releasedate
         self.audio=audio
         self.image=image
+        self.license_ccurl=license_ccurl
     }
     
     public var description: String { return "\(name)" }

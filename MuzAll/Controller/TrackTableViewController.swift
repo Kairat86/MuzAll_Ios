@@ -14,7 +14,7 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
     var searching=false
     var currentQuery=""
     var noResults=false
-    let v=UISearchBar(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
+    var v:UISearchBar?=nil
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tracks.count
@@ -26,8 +26,11 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
         let t = tracks[indexPath.row]
         cell.name.text = t.name
         cell.artisName.text=t.artist_name
+        cell.artisName.sizeToFit()
         cell.duration.text="Duration: "+String(t.duration)
         cell.releaseDate.text="Released:"+t.releasedate
+        cell.lic.text="license:"
+        cell.licence=t.license_ccurl
         guard let url=URL(string: t.image) else{
             preconditionFailure("Failed to construct URL")
         }
@@ -46,6 +49,7 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
         selectedTrack=tracks[indexPath.row]
         
         let player = (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "player") as! PlayController)
+        
         player.selectedTrack=selectedTrack
         present(player,animated: false)
     }
@@ -77,10 +81,11 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
         table.dataSource=self
         table.delegate=self
         navItem.rightBarButtonItem=UIBarButtonItem(image: UIImage(systemName: "folder"), style: .plain, target: self, action: #selector(showMyMusic))
-//        navItem.leftBarButtonItem=UIBarButtonItem(customView: v)
-        navItem.leftBarButtonItems=[UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action:#selector(reset)),UIBarButtonItem(customView: v)]
+        v = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.width*2/3, height: 20))
+        navItem.leftBarButtonItems=[UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action:#selector(reset)),UIBarButtonItem(customView: v!)]
+        
         navItem.hidesBackButton=false
-        v.delegate=self
+        v?.delegate=self
     }
     
     @objc func reset() {
@@ -140,7 +145,7 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
                     self?.tracks+=response.results
                     self?.table.reloadData()
                     self?.dismiss(animated: false)
-                    self?.v.endEditing(true)
+                    self?.v?.endEditing(true)
                 }
             } catch {
                 print("err=>\(error)")
