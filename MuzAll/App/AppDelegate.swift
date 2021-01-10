@@ -1,6 +1,7 @@
 import UIKit
 import AVFoundation
 import UserNotifications
+import GoogleMobileAds
 
 @UIApplicationMain
 class MuzAllAppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,7 +9,7 @@ class MuzAllAppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application:UIApplication,didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        print("app")
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(.playback)

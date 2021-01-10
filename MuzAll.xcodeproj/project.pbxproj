@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C087BBF560C6EC888B3A53A /* libPods-MuzAll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E35D516B1F34637D9F2D26E /* libPods-MuzAll.a */; };
 		A21961DD243F9F2E00434903 /* PlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21961DC243F9F2E00434903 /* PlayController.swift */; };
 		A266360324D8B843007964B8 /* TrackItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A266360224D8B843007964B8 /* TrackItem.swift */; };
 		A279B5AC24614EF600C99CC6 /* MyMusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A279B5AB24614EF600C99CC6 /* MyMusicController.swift */; };
 		A280AC00242E19EA000E4303 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A280ABFF242E19EA000E4303 /* Assets.xcassets */; };
 		A280AC04242E1D5E000E4303 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = A280AC03242E1D5E000E4303 /* Track.swift */; };
 		A280AC06242E1F2B000E4303 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A280AC05242E1F2B000E4303 /* TrackCell.swift */; };
+		A283593525549944009D191E /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A283593425549944009D191E /* Podfile */; };
 		A284C33224FAE88100E9F9D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A284C33124FAE88100E9F9D0 /* AppDelegate.swift */; };
 		A2A8FCDA24699DB800BBE8C5 /* SeekBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A8FCD924699DB800BBE8C5 /* SeekBar.swift */; };
 		A2AC925A24B80161000298E3 /* SeekBarTouchListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC925924B80161000298E3 /* SeekBarTouchListener.swift */; };
@@ -28,14 +30,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2374C77B9B1B84A70D707468 /* Pods-MuzAll.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuzAll.release.xcconfig"; path = "Target Support Files/Pods-MuzAll/Pods-MuzAll.release.xcconfig"; sourceTree = "<group>"; };
 		4E4AD75AC8BDFF5DED1963D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84306E3F851F05E239AD4C78 /* MuzAll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuzAll.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89ED631D3FEE47D9953E318A /* Pods-MuzAll.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuzAll.debug.xcconfig"; path = "Target Support Files/Pods-MuzAll/Pods-MuzAll.debug.xcconfig"; sourceTree = "<group>"; };
+		9E35D516B1F34637D9F2D26E /* libPods-MuzAll.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuzAll.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A21961DC243F9F2E00434903 /* PlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayController.swift; sourceTree = "<group>"; };
 		A266360224D8B843007964B8 /* TrackItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItem.swift; sourceTree = "<group>"; };
 		A279B5AB24614EF600C99CC6 /* MyMusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMusicController.swift; sourceTree = "<group>"; };
 		A280ABFF242E19EA000E4303 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A280AC03242E1D5E000E4303 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		A280AC05242E1F2B000E4303 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
+		A283593425549944009D191E /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A284C33124FAE88100E9F9D0 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2A8FCD924699DB800BBE8C5 /* SeekBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekBar.swift; sourceTree = "<group>"; };
 		A2AC925924B80161000298E3 /* SeekBarTouchListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekBarTouchListener.swift; sourceTree = "<group>"; };
@@ -50,6 +56,17 @@
 		F9AB7568C6060A3ED436159C /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		E8C6176DCCDC6608D2ABC848 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C087BBF560C6EC888B3A53A /* libPods-MuzAll.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		4C7C40427506EB64F04E5687 /* App */ = {
 			isa = PBXGroup;
@@ -60,11 +77,22 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		8549D4ADA5BDDEEFB7DBE34E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E35D516B1F34637D9F2D26E /* libPods-MuzAll.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		89F87A634A96548CB6E68FBA = {
 			isa = PBXGroup;
 			children = (
+				A283593425549944009D191E /* Podfile */,
 				FE8193F60A5388D7B5CCBB32 /* MuzAll */,
 				9B5D7190A5EB9C73FD4CE995 /* Products */,
+				B0378C6E1ADB627F4535A353 /* Pods */,
+				8549D4ADA5BDDEEFB7DBE34E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +138,15 @@
 				A2DB7327242E552500A53A26 /* local.properties */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		B0378C6E1ADB627F4535A353 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				89ED631D3FEE47D9953E318A /* Pods-MuzAll.debug.xcconfig */,
+				2374C77B9B1B84A70D707468 /* Pods-MuzAll.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		B25EB762955DFAD08CD4A09B /* Assets */ = {
@@ -164,8 +201,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83DDEAFEA852BD2BFA53C992 /* Build configuration list for PBXNativeTarget "MuzAll" */;
 			buildPhases = (
+				2085F93234F52F37152A106A /* [CP] Check Pods Manifest.lock */,
 				1A5DE19D030654EF5F254451 /* Sources */,
 				8B0A53DFE2BBD09CCB2C6FD9 /* Resources */,
+				E8C6176DCCDC6608D2ABC848 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -193,6 +232,7 @@
 				Base,
 			);
 			mainGroup = 89F87A634A96548CB6E68FBA;
+			productRefGroup = 9B5D7190A5EB9C73FD4CE995 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -206,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A283593525549944009D191E /* Podfile in Resources */,
 				A280AC00242E19EA000E4303 /* Assets.xcassets in Resources */,
 				A2E9E6622520E45000BA5227 /* LaunchScreen.storyboard in Resources */,
 				A2DB7328242E552500A53A26 /* local.properties in Resources */,
@@ -214,6 +255,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2085F93234F52F37152A106A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MuzAll-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1A5DE19D030654EF5F254451 /* Sources */ = {
@@ -242,11 +308,12 @@
 /* Begin XCBuildConfiguration section */
 		254917507221E528A387FCCB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2374C77B9B1B84A70D707468 /* Pods-MuzAll.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = R92JQN9YTV;
 				INFOPLIST_FILE = "$(SRCROOT)/MuzAll/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -254,10 +321,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = zhet.muz.all;
 				PRODUCT_NAME = MuzAll;
-				PROVISIONING_PROFILE_SPECIFIER = MuzAll;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -266,10 +333,11 @@
 		};
 		883342E30F52FEC49D4AA266 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89ED631D3FEE47D9953E318A /* Pods-MuzAll.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = R92JQN9YTV;
 				INFOPLIST_FILE = "$(SRCROOT)/MuzAll/App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -277,7 +345,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = zhet.muz.all;
 				PRODUCT_NAME = MuzAll;
 				SDKROOT = iphoneos;

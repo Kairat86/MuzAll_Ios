@@ -14,6 +14,10 @@ class Track :Identifiable, Decodable, CustomStringConvertible{
         return Int(lhs.id)==Int(rhs.id)
     }
     
+//    func test() -> URLSessionDownloadDelegate {
+//        print("tst")
+//        return DownloadManager.shared
+//    }
     
     init(name:String, id:String, duration:Int, artist_name:String, releasedate:String, audio:String, image:String="",license_ccurl:String="") {
         self.name=name
@@ -24,6 +28,7 @@ class Track :Identifiable, Decodable, CustomStringConvertible{
         self.audio=audio
         self.image=image
         self.license_ccurl=license_ccurl
+//        test()
     }
     
     public var description: String { return "\(name)" }

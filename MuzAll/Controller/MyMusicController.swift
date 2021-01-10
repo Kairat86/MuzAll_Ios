@@ -1,17 +1,10 @@
-//
-//  MyMusicController.swift
-//  MuzAll
-//
-//  Created by Kairat Doshekenov on 5/5/20.
-//
-
 import UIKit
 import QuickLookThumbnailing
 import AVFoundation
 import AudioToolbox
 
 
-class MyMusicController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, DownloadDelegate, UIGestureRecognizerDelegate {
+class MyMusicController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DownloadDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var grid: UICollectionView!
     var files=[MuzAllFile]()
@@ -19,26 +12,44 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
     let size: CGSize = CGSize(width: 60, height: 90)
     let scale = UIScreen.main.scale
     var itemToDel:URL? = nil
+    let perSection = UIDevice.current.userInterfaceIdiom == .pad ? 7 : 3
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        files.count/3+1
+        files.count/perSection+1
     }
     
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        print("test")
+//        let collectionWidth = collectionView.bounds.width
+//        return CGSize(width: collectionWidth/CGFloat(perSection), height: 250)
+//
+//    }
+
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//           return 50
+//       }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        let w: CGFloat = UIScreen.main.bounds.width
+        print("w=>\(w)")
+        let spacing: CGFloat = (w-CGFloat(perSection*108))/CGFloat(perSection)
+        print("spacing=>\(spacing)")
+        return spacing
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let r = files.count-section*3
-        return r<3 ? r : 3
+        let r = files.count-section*perSection
+        return r<perSection ? r : perSection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
           
-        let i = indexPath.section*3+indexPath.row
+        let i = indexPath.section*perSection+indexPath.row
         let f = files[i]
         if f.inProgress {
             let item = grid.dequeueReusableCell(withReuseIdentifier: "TrackItemDownloading", for: indexPath) as! TrackItemDownloading
             item.name.text="Downloading..."
-            item.animate(progress: f.progress)
             return item
         }
          let item = grid.dequeueReusableCell(withReuseIdentifier: "TrackItem", for: indexPath) as! TrackItem
@@ -53,13 +64,14 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
                    item.thumb.image = image2
                }
            }
+//        print("iw=>\(item.frame.width)")
            return item
        }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationItem.rightBarButtonItem=nil
         let f=files[indexPath.section*3+indexPath.row]
-        var name = f.url!.lastPathComponent
+        guard var name = f.url?.lastPathComponent else {return}
+        navigationItem.rightBarButtonItem=nil
         name.removeLast(4)
         let player = (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "player") as! PlayController)
         player.selectedTrack=Track(name: name,id: "1",duration: 2,artist_name: "artist",releasedate: "date",audio: String(describing: f.url!))
@@ -68,11 +80,12 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
     }
     
      func onDataReceived(percent:Float) {
-        print("prog=>\(percent)")
         files[0].progress = percent
         let indexPath=IndexPath.init(item: 0, section: 0)
+
         DispatchQueue.main.async {
-            self.grid.reloadItems(at:[indexPath])
+            let cell = self.grid.cellForItem(at: indexPath) as! TrackItemDownloading
+            cell.animate(progress: percent)
              }
        }
     
@@ -101,7 +114,7 @@ class MyMusicController: UIViewController, UICollectionViewDataSource, UICollect
 
         if let indexPath = grid?.indexPathForItem(at: p) {
             print("Long press at item: \(indexPath.row), section: \(indexPath.section)")
-            itemToDel = files[indexPath.section*3+indexPath.row].url
+            itemToDel = files[indexPath.section*perSection+indexPath.row].url
             navigationItem.rightBarButtonItem=UIBarButtonItem(image: UIImage(systemName: "bin.xmark"), style: .plain, target: self, action: #selector(deleteItem))
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         }

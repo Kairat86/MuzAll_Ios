@@ -88,13 +88,13 @@ class PlayController: UIViewController, SeekBarDelegate, ObservableObject {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if audioPlayer?.timeControlStatus == AVPlayer.TimeControlStatus.playing{
             let dur: Double = (audioPlayer?.currentItem?.duration.seconds)!
-            seekBar.stopIndeterminate(duration: Int(dur),stopped:stopped)
+            seekBar.stopIndeterminate(stopped:stopped)
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if view == touches.first?.view {
-            seekBar.stopIndeterminate(duration: 0, stopped: true)
+            seekBar.stopIndeterminate(stopped: true)
             audioPlayer?.pause()
             dismiss(animated: false)
         }

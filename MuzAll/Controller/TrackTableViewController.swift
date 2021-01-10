@@ -1,8 +1,8 @@
 import UIKit
+import GoogleMobileAds
 
-class TrackTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-    
-    
+class TrackTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, GADBannerViewDelegate {
+
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet var table: UITableView!
     var aIC :UIViewController?=nil
@@ -15,6 +15,7 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
     var currentQuery=""
     var noResults=false
     var v:UISearchBar?=nil
+    var bannerView: GADBannerView!
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tracks.count
@@ -29,8 +30,6 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
         cell.artisName.sizeToFit()
         cell.duration.text="Duration: "+String(t.duration)
         cell.releaseDate.text="Released:"+t.releasedate
-        cell.lic.text="license:"
-        cell.licence=t.license_ccurl
         guard let url=URL(string: t.image) else{
             preconditionFailure("Failed to construct URL")
         }
@@ -51,11 +50,12 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
         let player = (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "player") as! PlayController)
         
         player.selectedTrack=selectedTrack
+        player.isDownloadHidden=true
         present(player,animated: false)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row==tracks.count-1 && !noResults{
+        if indexPath.row==tracks.count-1 && !noResults  {
             present(aIC!,animated: false)
             if searching{
                 searchTracks(offset: tracks.count, query:currentQuery)
@@ -64,8 +64,6 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
             }
         }
     }
-    
-    // MARK: - Table view data source
     
     override func viewDidAppear(_ animated: Bool) {
         if(!appeared){
@@ -80,14 +78,75 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
         loadTracks(0)
         table.dataSource=self
         table.delegate=self
-        navItem.rightBarButtonItem=UIBarButtonItem(image: UIImage(systemName: "folder"), style: .plain, target: self, action: #selector(showMyMusic))
         v = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.width*2/3, height: 20))
         navItem.leftBarButtonItems=[UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action:#selector(reset)),UIBarButtonItem(customView: v!)]
         
         navItem.hidesBackButton=false
         v?.delegate=self
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        bannerView.adUnitID = "ca-app-pub-8761730220693010/7718030736"
+        bannerView.rootViewController = self
+        bannerView.delegate=self
+        bannerView.load(GADRequest())
     }
     
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+      print("adViewDidReceiveAd")
+      addBannerViewToView(bannerView)
+    }
+    
+//    test banner id:ca-app-pub-3940256099942544/2934735716
+//    banner id: ca-app-pub-8761730220693010/7718030736
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+      bannerView.translatesAutoresizingMaskIntoConstraints = false
+        table.translatesAutoresizingMaskIntoConstraints=false
+      view.addSubview(bannerView)
+      view.addConstraints(
+        [NSLayoutConstraint(item: bannerView,
+                            attribute: .bottom,
+                            relatedBy: .equal,
+                            toItem: view,
+                            attribute: .bottom,
+                            multiplier: 1,
+                            constant: -9),
+         NSLayoutConstraint(item: bannerView,
+                            attribute: .centerX,
+                            relatedBy: .equal,
+                            toItem: view,
+                            attribute: .centerX,
+                            multiplier: 1,
+                            constant: 0),
+         NSLayoutConstraint(item: table,
+                            attribute: .bottom,
+                            relatedBy: .equal,
+                            toItem: bannerView,
+                            attribute: .top,
+                            multiplier: 1,
+                            constant: 0),
+         NSLayoutConstraint(item: table,
+                            attribute: .top,
+                            relatedBy: .equal,
+                            toItem: view,
+                            attribute: .top,
+                            multiplier: 1,
+                            constant: 0),
+         NSLayoutConstraint(item: table,
+                            attribute: .leading,
+                            relatedBy: .equal,
+                            toItem: view,
+                            attribute: .leading,
+                            multiplier: 1,
+                            constant: 0),
+         NSLayoutConstraint(item: table,
+                            attribute: .trailing,
+                            relatedBy: .equal,
+                            toItem: view,
+                            attribute: .trailing,
+                            multiplier: 1,
+                            constant: 0)
+        ])
+     }
     @objc func reset() {
         print("reset in search=>\(searching)")
         if !searching {return}
@@ -116,7 +175,7 @@ class TrackTableViewController: UIViewController, UITableViewDataSource, UITable
         let arr = fileContent.components(separatedBy: "\n")
         let host=arr[0]
         var components = URLComponents()
-        components.scheme = "https"
+        components.scheme = "http"
         components.host = host
         components.path="/v3.0/tracks"
         components.queryItems=[
